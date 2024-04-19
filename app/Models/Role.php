@@ -24,4 +24,6 @@ class Role extends Model
         $this->is_active = ! $this->is_active;
         $this->save();
     }
+
+  
 }

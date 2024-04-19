@@ -30,17 +30,22 @@ $(document).ready(function (){
                 html += `
                 
                     <td class='rolesname'>${response.name}</td>
-                    <td><button id= 'click' class='btn ${response.is_active ? 'btn-warning' : 'btn-secondary'} '>
-                        ${response.is_active ? 'Active' : 'Inactive'}</button></td>
+                    <td>
+                        <a href='/roles/${response.id}/toggle'>
+                            <button id= 'click' class='btn ${response.is_active ? 'btn-warning' : 'btn-secondary'} '>
+                            ${response.is_active ? 'Active' : 'Inactive'}</button>
+                        </a>
+                        
+                    </td>
                     <td>
                         <button class='btn editbtn' id='editbtn${response.id}'>
                             <input type="hidden" name="" class='rolesid' value='${response.id}'>
-                    <i class="fa-solid fa-pen"></i>
-                    </button>
+                        <i class="fa-solid fa-pen"></i>
+                        </button>
 
-                    <button class='btn delete' id='delete_btn${response.id}'>
-                    <i class="fa-solid fa-trash text-danger"></i>
-                    </button>
+                        <button class='btn delete' id='delete_btn${response.id}'>
+                        <i class="fa-solid fa-trash text-danger"></i>
+                        </button>
                     </td>
                 `
                 if(role_id == ''){

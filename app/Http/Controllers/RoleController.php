@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use App\Models\Role;
 
@@ -10,13 +12,20 @@ class RoleController extends Controller
 {
     //
     public function createAndEditRole(Request $request){
-        $validate = $request->validate([
-            'data.role_name'=>'required|string|unique:roles,name',
+        $data = $request->all();
+        $role_id = $request->input('data.role_id');
+        
+        Validator::make($data, [
+
+            'data.role_name' => [
+                'required',
+                Rule::unique('roles')->ignore($role_id)
+            ]
         ]);
+        
 
         $role_name = $request->input('data.role_name');
-        if($request->has('data.role_id')){
-            $role_id = $request->input('data.role_id');
+        if($role_id != ''){
             $role = Role::find($role_id);
             $role->update(['name'=>$role_name]);
         }else{
