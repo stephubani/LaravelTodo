@@ -61,8 +61,7 @@ $(document).ready(function (){
                 $('#rolesname').val('')
                 $('#create').text('Create')
                 $('#roleid').val('')
-
-
+                
                 document.getElementById(`editbtn${response.id}`).addEventListener('click' , editRole)
                 document.getElementById(`delete_btn${response.id}`).addEventListener('click' , deleteRole)
 

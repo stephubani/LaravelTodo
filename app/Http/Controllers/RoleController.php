@@ -15,14 +15,14 @@ class RoleController extends Controller
         $data = $request->all();
         $role_id = $request->input('data.role_id');
         
-        Validator::make($data, [
+        $validator = Validator::make($data, [
 
             'data.role_name' => [
                 'required',
-                Rule::unique('roles')->ignore($role_id)
+                Rule::unique('roles' , 'name')->ignore($role_id)
             ]
-        ]);
-        
+        ])->validate();
+
 
         $role_name = $request->input('data.role_name');
         if($role_id != ''){
