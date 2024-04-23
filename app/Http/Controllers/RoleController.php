@@ -52,4 +52,5 @@ class RoleController extends Controller
         $role = Role::find($id);
         $role->delete();
     }
+
 }

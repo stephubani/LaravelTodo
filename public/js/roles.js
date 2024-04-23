@@ -92,6 +92,7 @@ $(document).ready(function (){
     function editRole(event){
         let role_id = $(event.target).closest('tr').find('.rolesid').val()
         let role_name = $(event.target).closest('tr').find('.rolesname').text()
+        
 
         $('#roleid').val(role_id)
         $('#rolesname').val(role_name)
