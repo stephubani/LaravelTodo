@@ -26,14 +26,14 @@ $(document).ready(function(){
                 console.log(response)
                 let html = ''
                 if(user_id == ''){
-                   html += `<tr id='${response.id}'>`
+                   html += `<tr id='${response.user.id}'>`
                 }
                 html += `
                     <td class='${response.user.role.id}'>${response.user.role.name}</td>
                     <td class='username'>${response.user.name}</td>
                     <td class='useremail'>${response.user.email}</td>
                     <td>
-                        <a href="/users/${response.id}/toggle">
+                        <a href="/users/${response.user.id}/toggle">
                         <button id= 'click' class='btn ${response.user.is_active ? 'btn-warning' : 'btn-secondary'} '>
                         ${response.user.is_active ? 'Active' : 'Inactive'}</button>
                         </a>
