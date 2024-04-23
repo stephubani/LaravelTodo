@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d3ec350edb51dae701cf9807bf4f83d8",
+    "content-hash": "1aa1424bdcfa2a2809a86814a9852d2c",
     "packages": [
         {
             "name": "brick/math",
@@ -1252,16 +1252,16 @@
         },
         {
             "name": "laravel/prompts",
-            "version": "v0.1.17",
+            "version": "v0.1.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/prompts.git",
-                "reference": "8ee9f87f7f9eadcbe21e9e72cd4176b2f06cd5b5"
+                "reference": "bf9a360c484976692de0f3792f30066f4f4b34a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/prompts/zipball/8ee9f87f7f9eadcbe21e9e72cd4176b2f06cd5b5",
-                "reference": "8ee9f87f7f9eadcbe21e9e72cd4176b2f06cd5b5",
+                "url": "https://api.github.com/repos/laravel/prompts/zipball/bf9a360c484976692de0f3792f30066f4f4b34a2",
+                "reference": "bf9a360c484976692de0f3792f30066f4f4b34a2",
                 "shasum": ""
             },
             "require": {
@@ -1303,9 +1303,9 @@
             ],
             "support": {
                 "issues": "https://github.com/laravel/prompts/issues",
-                "source": "https://github.com/laravel/prompts/tree/v0.1.17"
+                "source": "https://github.com/laravel/prompts/tree/v0.1.20"
             },
-            "time": "2024-03-13T16:05:43+00:00"
+            "time": "2024-04-18T00:45:25+00:00"
         },
         {
             "name": "laravel/serializable-closure",

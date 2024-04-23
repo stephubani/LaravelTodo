@@ -28,7 +28,8 @@ class UserController extends Controller
 
             'data.user_email'=>['required','email',
             Rule::unique('users' , 'email')->ignore($user_id)
-            ]
+        ],
+            'data.role_id'=>['required']
         ])->validate();
 
         if($user_id != ''){
@@ -38,6 +39,8 @@ class UserController extends Controller
                 'email'=>$user_email,
                 'role_id'=>$role_id
             ]);
+
+            $message = 'Updated Successfully';
             
         }else{
             $user = User::create([
@@ -45,8 +48,14 @@ class UserController extends Controller
             'email'=>$user_email,
             'role_id'=>$role_id
             ]);
+
+            $message = 'Created Successfully';
         }
-        return $user->load('role');
+        return response()->json([
+            'user' => $user->load('role'),
+            'message' => $message,
+        ]);
+
 
     }
 

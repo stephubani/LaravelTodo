@@ -29,24 +29,24 @@ $(document).ready(function(){
                    html += `<tr id='${response.id}'>`
                 }
                 html += `
-                    <td class='${response.role.id}'>${response.role.name}</td>
-                    <td class='username'>${response.name}</td>
-                    <td class='useremail'>${response.email}</td>
+                    <td class='${response.user.role.id}'>${response.user.role.name}</td>
+                    <td class='username'>${response.user.name}</td>
+                    <td class='useremail'>${response.user.email}</td>
                     <td>
                         <a href="/users/${response.id}/toggle">
-                        <button id= 'click' class='btn ${response.is_active ? 'btn-warning' : 'btn-secondary'} '>
-                        ${response.is_active ? 'Active' : 'Inactive'}</button>
+                        <button id= 'click' class='btn ${response.user.is_active ? 'btn-warning' : 'btn-secondary'} '>
+                        ${response.user.is_active ? 'Active' : 'Inactive'}</button>
                         </a>
                     
                     </td>
                     <td>
-                        <button class='btn editbtn' id='edit_btn${response.id}'>
-                            <input type="hidden" name="rolesid" class='role_id'value='${response.role.id}'>
-                            <input type="hidden" name="userid" class='user_id' value='${response.id}'>
+                        <button class='btn editbtn' id='edit_btn${response.user.id}'>
+                            <input type="hidden" name="rolesid" class='role_id'value='${response.user.role.id}'>
+                            <input type="hidden" name="userid" class='user_id' value='${response.user.id}'>
                             <i class="fa-solid fa-pen"></i>
                         </button>
 
-                        <button class='btn delete' id='delete_btn${response.id}'>
+                        <button class='btn delete' id='delete_btn${response.user.id}'>
                             <i class="fa-solid fa-trash text-danger"></i>
                         </button>
                     </td>
@@ -58,7 +58,7 @@ $(document).ready(function(){
                 if(user_id == ''){
                     $('#user_details').prepend(html)
                 }else{
-                    $(`#${response.id}`).html(html)
+                    $(`#${response.user.id}`).html(html)
 
                 }
 
@@ -68,8 +68,13 @@ $(document).ready(function(){
                 $('#active_roles').val('')
                 $('#save').text('Create User')
 
-                document.getElementById(`edit_btn${response.id}`).addEventListener('click' , editUser)
-                document.getElementById(`delete_btn${response.id}`).addEventListener('click' , deleteUser)
+                $('#feedback').html(response.message)
+                setTimeout(function() {
+                    $('#feedback').html('')
+                }, 3000);
+
+                document.getElementById(`edit_btn${response.user.id}`).addEventListener('click' , editUser)
+                document.getElementById(`delete_btn${response.user.id}`).addEventListener('click' , deleteUser)
                 
             },
 
