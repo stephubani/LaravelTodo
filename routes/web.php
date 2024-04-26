@@ -3,17 +3,24 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TodoController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Models\Role;
 
-Route::get('/', function () {
-    return view('index');
-})->name('index');
+
+//Todo
+Route::get('/', [TodoController::class, 'show'])->name('index');
+Route::get('todo/{id}/fetch', [TodoController::class , 'show'])->name('todo.show');
+Route::post('todo/create', [TodoController::class,'store'])->name('todo.create');
+Route::get('todo/edit', [TodoController::class, 'update'])->name('todo.edit');
+Route::get('todo/{id}/delete' , [TodoController::class , 'destroy'])->name('todo.delete');
+Route::get('todo/{id}/completeTodo' , [TodoController::class , 'markAsCompleted'])->name('todo.complete');
+
+//End of Todo
 
 
 //Create Roles
-
 
 Route::get('roles/create', [RoleController::class,'createAndEditRole'])->name('roles.create');
 
@@ -28,6 +35,15 @@ Route::get('users/{id}/toggle' , [UserController::class , 'toggleUser'])->name('
 Route::get('user/save' , [UserController::class , 'save'])->name('users.save');
 Route::get('user/delete' , [UserController::class , 'deleteUser'])->name('users.delete');
 //End of Users
+
+//Login
+Route::get('userlogin' , function (){
+    return view('userlogin');
+})->name('userlogin');
+
+Route::get('user/login', [UserController::class , 'login'])->name('user.login');
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

@@ -34,7 +34,7 @@
                                 </li>
                         
                                 <li class="nav-item pad">
-                                    <a class="nav-link active redesigned" aria-current="page" href="login.php" style="font-size: 15px; color:white">
+                                    <a class="nav-link active redesigned" aria-current="page" href="{{route('userlogin')}}" style="font-size: 15px; color:white">
                                     Login</a>
                                 </li>
 
@@ -54,7 +54,7 @@
         <!-- navigation bar ends here -->
 
         <div class='row g-2'>
-            <h4>Users</h4>
+            <h4>{{ session('user_active') ? 'Welcome ' . session('user_active')->name : 'User' }}</h4>
             <div class='col-auto'>
                 <input type="text" class='form-control' name="username" id="user" placeholder='User-Name'>
                 <input type="hidden" name="userid" id='userid' value=''>
@@ -95,7 +95,7 @@
                     @foreach($users as $user)
                     
                         <tr id='{{$user->id}}'>
-                            <td class='rolename'>{{$user->role->name}}</td>
+                            <td class='rolename'>{{$user->role?->name}}</td>
                             <td class='username'>{{$user->name}}</td>
                             <td class='useremail'>{{$user->email}}</td>
                             <td>
@@ -106,7 +106,7 @@
                             </td>
                             <td>
                                 <button class='btn editbtn'id='edit_btn{{$user->id}}' >
-                                    <input type="hidden" name="rolesid" class='role_id'value='{{$user->role->id}}'>
+                                    <input type="hidden" name="rolesid" class='role_id'value='{{$user->role?->id}}'>
                                     <input type="hidden" name="userid" class='user_id' value='{{$user->id}}'>
                                     <i class="fa-solid fa-pen"></i>
                                 </button>

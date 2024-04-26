@@ -47,65 +47,22 @@
             </div>
         </div>
         <!-- navigation bar ends here -->
+        <form action="user/login" method='get'>
+            @csrf
+            <div class='row g-2'>
+                <h4>Login</h4>
+                    <div class='col-auto'>
+                        <input type="email" class='form-control' name="email" id="" placeholder='Your Email'>
+                    </div>
+                    <div class='col-auto'>
+                        <input type="password"  class='form-control' name="password" id="" placeholder = 'Your Password'>
+                    </div>
 
-        <div class ='row g-2 '>
-            <div class='col-auto'>
-                <h1>Roles</h1>
-                <input type="text" class='form-control mb-3' name="roles" id="rolesname" placeholder='Roles-Name'>
-                <input type="hidden" name="" id='roleid' value=''>
+                    <div class='col-auto'>
+                        <button type="submit" class='btn btn-warning'>Login</button>
+                    </div>
             </div>
-        
-            <div class='col-auto' style='margin-top:65px;'>
-                <button type='submit' class='btn btn-warning' id='create'>Create</button>
-            </div>
-           
-        </div>
-
-        <div id='feedback' class='col-md-6'>
-               
-        </div>
-
-        <div>
-            <table class='table table-striped'>
-            <thead>
-                <tr>
-                    <th>Roles</th>
-                    <th>Status</th>
-                    <th>Edit</th>
-                </tr>
-
-                <tbody id='allroles'>
-                    @foreach($roles as $role)
-                        <tr id= '{{$role->id}}'>
-                            <td class='rolesname'>{{$role->name}}</td>
-                            <td>
-                                <a href="/roles/{{$role->id}}/toggle">
-                                    <button id= 'click' class='btn <?php echo $role->is_active ? "btn-warning" : "btn-secondary" ?>'>{{$role->displayLabel()}}</button>
-                                </a>
-                                
-                            </td>
-                            <td>
-                                <button class='btn editbtn'id='editbtn{{$role->id}}' >
-                                    <input type="hidden" name="" class='rolesid' value='{{$role->id}}'>
-                                    <i class="fa-solid fa-pen"></i>
-                                </button>
-
-                                <button class='btn delete' id='delete_btn{{$role->id}}'>
-                                    <i class="fa-solid fa-trash text-danger"></i>
-                                </button>
-                            </td>
-                            
-                        </tr>
-                    @endforeach
-                </tbody>
-                
-            </thead>
-                   
-            </table>
-        </div>
-
+        </form>
     </div>
-<script src='/js/jquery.min.js'></script>
-<script src='/js/roles.js'></script>
 </body>
 </html>

@@ -46,7 +46,8 @@ class UserController extends Controller
             $user = User::create([
             'name'=> $user_name,
             'email'=>$user_email,
-            'role_id'=>$role_id
+            'role_id'=>$role_id,
+            'password'=>'password'
             ]);
 
             $message = 'Created Successfully';
@@ -57,6 +58,21 @@ class UserController extends Controller
         ]);
 
 
+    }
+
+    public function login(Request $request){
+        $email = $request->input('email');
+        $password = $request->input('password');
+        $user = User::where('email', '=', $email)->where('password','=', $password)->get();
+
+        dd($user);
+
+        if($user){
+            $request->session()->put('user_active', $user);
+            return redirect()->route('users')->with(['success' =>'Login Successfully']);
+        }else{
+            return redirect()->route('userlogin')->with('error' , 'Invalid Login Credentials');
+        };
     }
 
     public function fetch(){
@@ -80,5 +96,9 @@ class UserController extends Controller
 
         return redirect('/users');
     }
+
+    
+
+   
 
 }

@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Role;
+use App\Models\Todo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -59,5 +60,9 @@ class User extends Authenticatable
 
     public function displayStatusOfUser(){
         return $this->is_active ? 'Active' : 'Inactive';
+    }
+
+    public function todos(){
+        return $this->hasMany(Todo::class);
     }
 }
