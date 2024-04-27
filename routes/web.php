@@ -36,12 +36,12 @@ Route::get('user/save' , [UserController::class , 'save'])->name('users.save');
 Route::get('user/delete' , [UserController::class , 'deleteUser'])->name('users.delete');
 //End of Users
 
-//Login
+//Login/logout
 Route::get('userlogin' , function (){
     return view('userlogin');
 })->name('userlogin');
-
 Route::get('user/login', [UserController::class , 'login'])->name('user.login');
+Route::get('user/logout', [UserController::class , 'logout'])->name('user.logout');
 
 
 Route::get('/dashboard', function () {

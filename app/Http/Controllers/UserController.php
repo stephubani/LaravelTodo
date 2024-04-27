@@ -63,16 +63,21 @@ class UserController extends Controller
     public function login(Request $request){
         $email = $request->input('email');
         $password = $request->input('password');
-        $user = User::where('email', '=', $email)->where('password','=', $password)->get();
+        $user = User::where('email', $email)
+        ->first();
 
-        dd($user);
-
-        if($user){
+        if($user && password_verify($password , $user->password)){
             $request->session()->put('user_active', $user);
             return redirect()->route('users')->with(['success' =>'Login Successfully']);
         }else{
             return redirect()->route('userlogin')->with('error' , 'Invalid Login Credentials');
         };
+    }
+
+    public function logout(Request $request){
+        $request->session()->forget('user_active');
+
+        return redirect()->route('users');
     }
 
     public function fetch(){
