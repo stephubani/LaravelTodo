@@ -41,7 +41,7 @@
                 </div>
 
                 <div class='col-auto'>
-                    <button type="submit" class='btn btn-warning'>{{!isset($todo) ? 'Create User' : 'Edit User'}}</button>
+                    <button type="submit" class='btn btn-warning'>{{!isset($todo) ? 'Create Todo' : 'Edit Todo'}}</button>
                     @if(isset($todo))
                         <a href="/" class='btn btn-warning'>Cancel</a>
                    @endif
