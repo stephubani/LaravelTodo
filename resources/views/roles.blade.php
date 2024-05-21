@@ -1,7 +1,6 @@
 <x-template.markup>
-    <x-template.headings-style>
-        Roles
-    </x-template.headings-style>
+    <x-template.headings-style h2="Roles"/>
+        
     <div class ='row g-2 '>
         @if (auth()->user()?->can('update', App\Models\Role::class))
             <x-template.inputs
@@ -38,7 +37,7 @@
         
     </div>
 
-    <x-template.feedback/>
+    <div id='feedback'></div>
 
     <x-template.table-style id="allroles">
         <x-slot:thead>
@@ -87,5 +86,5 @@
     <x-slot:js_path>
         {{'/js/roles.js'}}
     </x-slot:js_path>
-</x-template-markup>
+</x-template.markup>
 

@@ -1,7 +1,6 @@
 <x-template.markup>
-    <x-template.headings-style>
-        Permissions
-    </x-template.headings-style>
+    <x-template.headings-style h2="Permissions"/>
+
     <form action="{{!isset($a_permission)? '/permissions/create ': '/permissions/edit'}}" method='get'>
         <div class ='row g-2 '>
             <x-template.inputs 
@@ -85,7 +84,7 @@
     <x-slot:js_path>
         {{'#'}}
     </x-slot:js_path>
-</x-template-markup>
+</x-template.markup>
 
 
 

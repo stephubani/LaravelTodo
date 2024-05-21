@@ -66,9 +66,15 @@ class RoleController extends Controller
     }
 
     public function fetchRoles() {
-        $roles = Role::orderBy('id', 'desc')->get();
-        $permissions = Permission::orderBy('id', 'desc')->get();
-        return view('roles', [ 'roles'=> $roles , 'permissions'=>$permissions]);
+        $response = Gate::inspect('view', Role::class);
+        if($response->allowed()){
+            $roles = Role::orderBy('id', 'desc')->get();
+            $permissions = Permission::orderBy('id', 'desc')->get();
+            return view('roles', [ 'roles'=> $roles , 'permissions'=>$permissions]);
+        }else{
+            return redirect()->route('login');
+        }
+       
     }
 
     public function toggle($id){

@@ -1,8 +1,5 @@
 <x-template.markup>
-
-    <x-template.headings-style>
-        Todo
-    </x-template.headings-style>
+    <x-template.headings-style h2="Todo"/>
         <form action="{{!isset($todo) ? '/todo/create' : '/todo/edit'}}" method='{{!isset($todo) ? "post" : "get"}}'>
         @csrf
         <div class='row g-2'>
@@ -97,7 +94,7 @@
     <x-slot:js_path>
         {{'#'}}
     </x-slot:js_path>
-</x-template-markup>
+</x-template.markup>
 
 
 

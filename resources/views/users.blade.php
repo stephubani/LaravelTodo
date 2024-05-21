@@ -1,7 +1,7 @@
 <x-template.markup>
-    <x-template.headings-style>
-        {{ !auth()->user() ? 'Welcome '  : 'Hello' . ' ' . auth()->user()->name  }}
-    </x-template.headings-style>
+    <x-template.headings-style h2="Users"/>
+    
+   
 
     <div class="row g-2">
         <x-template.inputs
@@ -36,7 +36,7 @@
         </x-template.button-style>
     </div>
 
-    <x-template.feedback/>
+    <div id='feedback'></div>
 
 
     <x-template.table-style id="user_details">
