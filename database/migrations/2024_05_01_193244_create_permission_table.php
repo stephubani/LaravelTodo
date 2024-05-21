@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('todos', function (Blueprint $table) {
-            //
-            $table->timestamp('completed_at')->nullable(); // Create completed_at column and make it nullable
-            
+        Schema::create('permissions', function (Blueprint $table) {
+            $table->id();
+            $table->string('name', length: 50)->unique();
+            $table->string('description');
+            $table->timestamps();
         });
     }
 
@@ -23,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('todos', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('permissions');
     }
 };

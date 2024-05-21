@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Permission;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -34,13 +37,30 @@ class UserController extends Controller
 
         if($user_id != ''){
             $user = User::find($user_id);
-            $user->update([
-                'name'=>$user_name,
-                'email'=>$user_email,
-                'role_id'=>$role_id
-            ]);
+            $response = Gate::inspect('update', [User::class , $user ]);
+            if($response->allowed()){
+                $user->update([
+                    'name'=>$user_name,
+                    'email'=>$user_email,
+                    'role_id'=>$role_id
+                ]);
+                $message = 'Updated Successfully';
+                
+                return response()->json([
+                    'success'=> true,
+                    'user' => $user?->load('role'),
+                    'message' => $message,
+                ]);
 
-            $message = 'Updated Successfully';
+            }else{
+                $message = $response->message();
+                
+                return response()->json([
+                    'success'=>false,
+                    'message' => $message,
+                ]);
+            }
+           
             
         }else{
             $user = User::create([
@@ -51,42 +71,25 @@ class UserController extends Controller
             ]);
 
             $message = 'Created Successfully';
+                
+            return response()->json([
+                'success'=>true,
+                'user'=>$user->load('role'),
+                'message' => $message,
+            ]);
         }
-        return response()->json([
-            'user' => $user->load('role'),
-            'message' => $message,
-        ]);
+      
 
 
     }
 
-    public function login(Request $request){
-        $data = $request->all();
-       Validator::make($data , [
-            'email'=> ['required'],
-            'password'=>['required']
-       ])->validate();
 
-        $email = $request->input('email');
-        $password = $request->input('password');
-        $user = User::where('email', $email)
-        ->first();
-
-        if($user && password_verify($password , $user->password)){
-            $request->session()->put('user_active', $user);
-            return redirect()->route('users')->with(['success' =>'Login Successfully']);
-        }else{
-            return redirect()->route('userlogin')->with('error' , 'Invalid Login Credentials');
-        };
-    }
-
-    public function logout(Request $request){
-        $request->session()->forget('user_active');
-
-        return redirect()->route('users');
-    }
 
     public function fetch(){
+
+        if(!Auth::user()->role->permissions->contains(fn($permission)=>$permission->name == 'View User')){
+            return redirect()->route('index');
+        }
         $users = User::orderBy('id', 'desc')->get();
         
         $active_role = Role::where('is_active','=','1')->get();

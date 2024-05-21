@@ -24,57 +24,72 @@ $(document).ready(function(){
 
             success:function(response){
                 console.log(response)
-                let html = ''
-                if(user_id == ''){
-                   html += `<tr id='${response.user.id}'>`
-                }
-                html += `
-                    <td class='${response.user.role.id}'>${response.user.role.name}</td>
-                    <td class='username'>${response.user.name}</td>
-                    <td class='useremail'>${response.user.email}</td>
-                    <td>
-                        <a href="/users/${response.user.id}/toggle">
-                        <button id= 'click' class='btn ${response.user.is_active ? 'btn-warning' : 'btn-secondary'} '>
-                        ${response.user.is_active ? 'Active' : 'Inactive'}</button>
-                        </a>
-                    
-                    </td>
-                    <td>
-                        <button class='btn editbtn' id='edit_btn${response.user.id}'>
-                            <input type="hidden" name="rolesid" class='role_id'value='${response.user.role.id}'>
-                            <input type="hidden" name="userid" class='user_id' value='${response.user.id}'>
-                            <i class="fa-solid fa-pen"></i>
-                        </button>
+                if(response.success == true){
+                    let html = ''
+                    if(user_id == ''){
+                        html += `<tr id='${response.user.id}'>`
+                    }
+                    html += `
+                        <td class='${response.user.role.id}'>${response.user.role.name}</td>
+                        <td class='username'>${response.user.name}</td>
+                        <td class='useremail'>${response.user.email}</td>
+                        <td>
+                            <a href="/users/${response.user.id}/toggle">
+                            <button id= 'click' class='btn ${response.user.is_active ? 'btn-warning' : 'btn-secondary'} '>
+                            ${response.user.is_active ? 'Active' : 'Inactive'}</button>
+                            </a>
+                        
+                        </td>
+                        <td>
+                            <button class='btn editbtn' id='edit_btn${response.user.id}'>
+                                <input type="hidden" name="rolesid" class='role_id'value='${response.user.role.id}'>
+                                <input type="hidden" name="userid" class='user_id' value='${response.user.id}'>
+                                <i class="fa-solid fa-pen"></i>
+                            </button>
 
-                        <button class='btn delete' id='delete_btn${response.user.id}'>
-                            <i class="fa-solid fa-trash text-danger"></i>
-                        </button>
-                    </td>
-                `
-                if(user_id == ''){
-                    html += ` </tr>`
-                }
+                            <button class='btn delete' id='delete_btn${response.user.id}'>
+                                <i class="fa-solid fa-trash text-danger"></i>
+                            </button>
+                        </td>
+                    `
+                    if(user_id == ''){
+                        html += ` </tr>`
+                    }
 
-                if(user_id == ''){
-                    $('#user_details').prepend(html)
+                    if(user_id == ''){
+                        $('#user_details').prepend(html)
+                    }else{
+                        $(`#${response.user.id}`).html(html)
+
+                    }
+
+                    $('#user').val('')
+                    $('#useremail').val('')
+                    $('#userid').val('')
+                    $('#active_roles').val('')
+                    $('#save').text('Create User')
+
+                    $('#feedback').html(response.message)
+                    setTimeout(function() {
+                        $('#feedback').html('')
+                    }, 3000);
+
+                    document.getElementById(`edit_btn${response.user.id}`).addEventListener('click' , editUser)
+                    document.getElementById(`delete_btn${response.user.id}`).addEventListener('click' , deleteUser)
+
                 }else{
-                    $(`#${response.user.id}`).html(html)
+                    $('#feedback').html(response.message)
+                    setTimeout(function() {
+                        $('#feedback').html('')
+                    }, 3000);
 
+                    $('#user').val('')
+                    $('#useremail').val('')
+                    $('#userid').val('')
+                    $('#active_roles').val('')
+                    $('#save').text('Create User')
                 }
-
-                $('#user').val('')
-                $('#useremail').val('')
-                $('#userid').val('')
-                $('#active_roles').val('')
-                $('#save').text('Create User')
-
-                $('#feedback').html(response.message)
-                setTimeout(function() {
-                    $('#feedback').html('')
-                }, 3000);
-
-                document.getElementById(`edit_btn${response.user.id}`).addEventListener('click' , editUser)
-                document.getElementById(`delete_btn${response.user.id}`).addEventListener('click' , deleteUser)
+              
                 
             },
 

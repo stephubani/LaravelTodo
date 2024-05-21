@@ -52,14 +52,11 @@ class TodoController extends Controller
             'todos'=>$todos,
             'active_users'=>$active_user,
         ];
-
         if($id){
             $todo = Todo::find($id);
             $data['todo'] = $todo;
-        }
-        
+        } 
         return view('index' , $data);
-
     }
 
     /**
