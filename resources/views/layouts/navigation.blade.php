@@ -50,7 +50,7 @@
 
                             </ul>
 
-                            <div class="text-light">Hello {{auth()->user()->name}}</div>
+                            <div class="text-light">Hello {{auth()->user()?->name}}</div>
                         </div>
                     </div>
                 </nav>
