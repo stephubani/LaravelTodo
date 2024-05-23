@@ -36,21 +36,25 @@
                                 </li>
 
 
-                                <li class="nav-item pad">
-                                    @if(!auth()->check())
-                                    <a class="nav-link active redesigned" aria-current="page" href="{{ route('login') }}" style="font-size: 15px; color:white">
-                                    Login</a>
-                                    @else
-                                       <form action="{{route('logout')}}" method='post'>
-                                        @csrf
-                                            <button type='submit'>LogOut</button>
-                                       </form>
-                                    @endif
-                                </li>
+                               
 
                             </ul>
 
                             <div class="text-light">Hello {{auth()->user()?->name}}</div>
+
+                            <div class="nav-item pad p-3">
+                                @if(!auth()->check())
+                                <a class="nav-link active redesigned btn btn-outline-warning" aria-current="page" href="{{ route('login') }}" style="font-size: 15px; color:white">
+                                Login</a>
+                                @else
+                                    <form action="{{route('logout')}}" method='post'>
+                                    @csrf
+                                        <button class="btn btn-outline-warning" type='submit'>LogOut</button>
+                                    </form>
+                                @endif
+                            </div>
+
+                           
                         </div>
                     </div>
                 </nav>
