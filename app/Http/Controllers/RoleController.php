@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use App\Models\Role;
 use App\Models\Permission;
+use App\Models\User;
 
 class RoleController extends Controller
 {
@@ -25,7 +26,7 @@ class RoleController extends Controller
             ]
         ])->validate();
 
-
+        Gate::inspect('before', User::class);
         $role_name = $request->input('data.role_name');
         if($role_id != ''){
             $response = Gate::inspect('update', Role::class);

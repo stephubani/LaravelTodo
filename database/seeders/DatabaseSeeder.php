@@ -17,11 +17,11 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
      
-      $permission = Permission::insert([
-        ['name'=> 'View Role' , 'description'=> 'User can view role'],
-        ['name'=> 'View User', 'description'=> 'User can view user'],
-        ['name'=> 'View Todo', 'description'=> 'User can view todo']
-      ]);
+      // $permission = Permission::insert([
+      //   ['name'=> 'View Role' , 'description'=> 'User can view role'],
+      //   ['name'=> 'View User', 'description'=> 'User can view user'],
+      //   ['name'=> 'View Todo', 'description'=> 'User can view todo']
+      // ]);
 
 
         $role = Role::firstOrCreate([
@@ -29,10 +29,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
     
-        $role->permissions()->sync([1,2,3]);
+        // $role->permissions()->sync([1,2,3]);
 
         User::factory()->create([
-            'name' => 'Stephanie',
+            'name' => 'Super Stephanie',
             'email' => 'steph@gmail.com',
             'role_id'=> $role->id,
         ]);

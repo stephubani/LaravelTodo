@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Role;
 use App\Models\Todo;
@@ -64,5 +65,13 @@ class User extends Authenticatable
 
     public function todos(){
         return $this->hasMany(Todo::class);
+    }
+
+    public function isSuperUser(){
+        if(Str::contains($this->name , 'Super')){
+            return true;
+        }else{
+            return false;
+        };
     }
 }

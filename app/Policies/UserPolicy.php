@@ -16,6 +16,13 @@ class UserPolicy
         //
     }
 
+    public function before(User $user , string $ability ): bool|null{
+        if($user->isSuperUser()){
+            return true;
+        }
+        return null;
+    }
+
     public function update(User $user, User $user_to_update) : Response{
         if($user->role->name == 'Admin'){
             return Response::allow();
@@ -51,5 +58,7 @@ class UserPolicy
         })? Response::allow() : Response::deny('Unauthorized access');
        
     }
+
+   
 
 }
