@@ -14,7 +14,12 @@ class RolePolicy
     {
         //
     }
-
+    public function before(User $user ,string $ability): bool|null{
+        if($user->isSuperUser()){
+            return true;
+        }
+        return null;
+    }
     
     public function update(User $user) : Response{
         return $user->role->name === 'Admin' ? Response::allow() : Response::deny('Unauthorized action');

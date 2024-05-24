@@ -26,7 +26,6 @@ class RoleController extends Controller
             ]
         ])->validate();
 
-        Gate::inspect('before', User::class);
         $role_name = $request->input('data.role_name');
         if($role_id != ''){
             $response = Gate::inspect('update', Role::class);
