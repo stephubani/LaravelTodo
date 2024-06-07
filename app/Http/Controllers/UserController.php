@@ -87,9 +87,6 @@ class UserController extends Controller
 
     public function fetch(){
 
-        if(!Auth::user()->role->permissions->contains(fn($permission)=>$permission->name == 'View User')){
-            return redirect()->route('index');
-        }
         $users = User::orderBy('id', 'desc')->get();
         
         $active_role = Role::where('is_active','=','1')->get();

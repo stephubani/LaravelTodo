@@ -1,6 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Events\CompletedTodo;
+use App\Events\TodoAssigned;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -37,6 +41,9 @@ class TodoController extends Controller
             'name'=>$todo_name,
             'user_id'=>$user_id
         ]);
+
+        TodoAssigned::dispatch($todo);
+      
 
         return redirect()->route('index')->with('success' , 'Created Successfully');
     }
@@ -96,7 +103,7 @@ class TodoController extends Controller
         return redirect()->route('index')->with('success' , 'Deleted Successfully');
     }
 
-    public function markAsCompleted($id){
+    public function markAsCompleted($id ){
         $todo = Todo::find($id);
 
         $todo->update([
@@ -104,6 +111,11 @@ class TodoController extends Controller
             'completed_at'=>now()
         ]);
 
+        CompletedTodo::dispatch($todo);
+
         return redirect()->route('index')->with('success', 'Todo Completed');
+
     }
+
+   
 }

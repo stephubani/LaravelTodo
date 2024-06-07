@@ -24,6 +24,10 @@ class Todo extends Model
     public function displayStatus(){
         return $this->is_completed ? 'Completed' : 'Not Completed';
     }
+
+    public function notifications(){
+        return $this->hasMany(Notification::class);
+    }
     
     
 

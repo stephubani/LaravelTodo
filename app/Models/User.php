@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Role;
+use App\Models\Notification;
 use App\Models\Todo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -74,4 +75,6 @@ class User extends Authenticatable
             return false;
         };
     }
+
+   
 }
