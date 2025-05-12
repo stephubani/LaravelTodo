@@ -38,27 +38,27 @@ class UserPolicy
     public function viewUser(User $user ): Response{
         return $user->role->permissions->contains(function($permission){
            return $permission->name == 'View User';
-           
+
         })? Response::allow() : Response::deny('Unauthorized access');
-       
+
     }
 
     public function viewRole(User $user ): Response{
         return $user->role->permissions->contains(function($permission){
             return $permission->name == 'View Role';
-           
+
         })? Response::allow() : Response::deny('Unauthorized access');
-       
+
     }
 
     public function viewTodo(User $user ): Response{
         return $user->role->permissions->contains(function($permission){
             return $permission->name == 'View Todo';
-           
+
         })? Response::allow() : Response::deny('Unauthorized access');
-       
+
     }
 
-   
+
 
 }

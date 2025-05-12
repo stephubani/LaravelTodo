@@ -14,11 +14,16 @@ class Todo extends Model
         'name',
         'user_id',
         'is_completed',
-        'completed_at'
+        'completed_at',
+        'project_id'
     ];
 
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+    public function project(){
+        return $this->belongsTo(Project::class);
     }
 
     public function displayStatus(){
@@ -28,7 +33,7 @@ class Todo extends Model
     public function notifications(){
         return $this->hasMany(Notification::class);
     }
-    
-    
+
+
 
 }

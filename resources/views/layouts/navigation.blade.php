@@ -8,22 +8,22 @@
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            
+
                               @can('viewTodo', App\Models\User::class)
                                 <li class="nav-item">
                                     <a class="nav-link active redesigned" aria-current="page" href="{{route('index')}}" style="font-size: 15px; color:white">Home</a>
                                 </li>
                               @endcan
-                                    
-                               
-                            
+
+
+
                                 @can('viewUser', App\Models\User::class)
                                     <li class="nav-item">
                                         <a class="nav-link active redesigned" aria-current="page" href="{{route('users')}}" style="font-size: 15px; color:white">Users</a>
                                     </li>
                                 @endcan
 
-                                @can('viewRole', App\Models\User::class) 
+                                @can('viewRole', App\Models\User::class)
                                     <li class="nav-item">
                                         <a class="nav-link active redesigned" aria-current="page" href="{{route('roles')}}" style="font-size: 15px; color:white">
                                         Roles
@@ -36,8 +36,10 @@
                                     Permissions</a>
                                 </li>
 
-
-                               
+                                <li class="nav-item pad">
+                                    <a class="nav-link active redesigned" aria-current="page" href="{{route('projects')}}" style="font-size: 15px; color:white">
+                                    Projects</a>
+                                </li>
 
                             </ul>
 
@@ -55,7 +57,7 @@
                                 @endif
                             </div>
 
-                           
+
                         </div>
                     </div>
                 </nav>

@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
-     
+
       // $permission = Permission::insert([
       //   ['name'=> 'View Role' , 'description'=> 'User can view role'],
       //   ['name'=> 'View User', 'description'=> 'User can view user'],
@@ -28,12 +28,12 @@ class DatabaseSeeder extends Seeder
             'name'=>'Admin',
         ]);
 
-    
+
         // $role->permissions()->sync([1,2,3]);
 
         User::factory()->create([
-            'name' => 'Super Stephanie',
-            'email' => 'steph@gmail.com',
+            'name' => 'Super User',
+            'email' => 'user@gmail.com',
             'role_id'=> $role->id,
         ]);
     }

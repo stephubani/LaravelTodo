@@ -5,6 +5,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Models\Role;
@@ -17,6 +18,8 @@ Route::post('todo/create', [TodoController::class,'store'])->name('todo.create')
 Route::get('todo/edit', [TodoController::class, 'update'])->name('todo.edit');
 Route::get('todo/{id}/delete' , [TodoController::class , 'destroy'])->name('todo.delete');
 Route::get('todo/{id}/completeTodo' , [TodoController::class , 'markAsCompleted'])->name('todo.complete');
+Route::post('/todo/reorder', [TodoController::class, 'updateOrder'])->name('todo.reorder');
+
 
 //End of Todo
 
@@ -55,6 +58,13 @@ Route::get('userlogin' , function (){
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+//Project
+Route::get('/project', [ProjectController::class, 'index'])->name('projects');
+Route::post('project/create', [ProjectController::class, 'create'])->name('project.create');
+Route::get('project/{id}/fetch', [ProjectController::class, 'index'])->name('project.edit');
+Route::put('project/update', [ProjectController::class, 'update'])->name('project.update');
+Route::get('/project/{id}/delete', [ProjectController::class, 'delete'])->name('project.delete');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

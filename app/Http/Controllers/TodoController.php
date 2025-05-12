@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\CompletedTodo;
 use App\Events\TodoAssigned;
 use App\Models\Notification;
+use App\Models\Project;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -19,7 +20,7 @@ class TodoController extends Controller
     public function index()
     {
         //
-       
+
     }
 
     /**
@@ -31,19 +32,22 @@ class TodoController extends Controller
         $data = $request->all();
         $todo_name = $request->input('todoname');
         $user_id = $request->input('activeuser');
+        $project_id = $request->input('project_id');
 
         $validator = Validator::make($data , [
                     'todoname' => ['required','unique:todos,name'],
-                    'activeuser'=>['required']
+                    'activeuser'=>['required'],
+                    'project_id'=> ['required']
                     ])->validate();
 
         $todo = Todo::create([
             'name'=>$todo_name,
-            'user_id'=>$user_id
+            'user_id'=>$user_id,
+            'project_id'=> $project_id
         ]);
 
         TodoAssigned::dispatch($todo);
-      
+
 
         return redirect()->route('index')->with('success' , 'Created Successfully');
     }
@@ -53,16 +57,18 @@ class TodoController extends Controller
      */
     public function show($id = null)
     {
-        $todos = Todo::orderBy('id', 'desc')->get();
+        $todos = Todo::orderBy('priority')->get();
         $active_user = User::where('is_active' , '=' , '1')->get();
+        $projects =  Project::all();
         $data = [
             'todos'=>$todos,
             'active_users'=>$active_user,
+            'projects'=> $projects
         ];
         if($id){
             $todo = Todo::find($id);
             $data['todo'] = $todo;
-        } 
+        }
         return view('index' , $data);
     }
 
@@ -75,21 +81,34 @@ class TodoController extends Controller
        $todo_id = $request->input('todo_id');
        $todo_name = $request->input('todoname');
        $user_id = $request->input('activeuser');
+       $project_id = $request->input('project_id');
 
         $validator = Validator::make($data , [
             'todoname' => ['required',
                 Rule::unique('todos', 'name')->ignore($todo_id)
         ],
-            'activeuser'=>['required']
+            'activeuser'=>['required'],
+            'project_id'=> ['required']
             ])->validate();
         $todo = Todo::find($todo_id);
         $todo->update([
             'name'=>$todo_name,
-            'user_id'=>$user_id
+            'user_id'=>$user_id,
+            'project_id'=> $project_id
         ]);
 
         return redirect()->route('index')->with('success' , 'Updated Successfully');
     }
+
+    public function updateOrder(Request $request)
+    {
+        foreach ($request->tasks as $index => $id) {
+            Todo::where('id', $id)->update(['priority' => $index + 1]);
+        }
+
+        return response()->json(['status' => 'success']);
+    }
+
 
     /**
      * Remove the specified resource from storage.
@@ -117,5 +136,5 @@ class TodoController extends Controller
 
     }
 
-   
+
 }
